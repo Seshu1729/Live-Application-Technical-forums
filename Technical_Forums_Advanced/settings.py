@@ -23,9 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '@6(wiet=2j%u2974=iw-9z9nm8#vr6+wpwce2=r)_j8q%e9*wo'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -76,16 +73,7 @@ WSGI_APPLICATION = 'Technical_Forums_Advanced.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'forums',
-        'USER': 'seshu',
-        'PASSWORD': 'Seshu@1729',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+#OLD DATABASE LINKES HERE...
 
 
 # Password validation
@@ -131,9 +119,12 @@ STATIC_URL = '/static/'
 
 #part 1
 
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
 
 #part 2
 
@@ -149,9 +140,12 @@ STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
 
 #part 3
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
-}
+import dj_database_url
+db_from_env = dj_database_url.config()
+DATABASES['default'].update(db_from_env)
+
+#part 4
+
+ALLOWED_HOSTS = ['*']
+
+DEBUG = False
