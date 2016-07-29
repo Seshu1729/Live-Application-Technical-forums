@@ -98,6 +98,7 @@ def search(request):
         link_details = Tag_Question_Link.objects.get(tag_link_id=tag_id)
         questions_list_objects.append(Question.objects.get(id=link_details.question_link_id))
 
+    paginator = Paginator(questions_list_objects, 10)
     page = request.GET.get('page')
 
     if not questions_list_objects:
