@@ -148,4 +148,4 @@ DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = ['*']
 
-DEBUG = False
+DEBUG = True
