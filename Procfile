@@ -1,0 +1,1 @@
+web: gunicorn Technical_Forums_Advanced.wsgi --log-file -
