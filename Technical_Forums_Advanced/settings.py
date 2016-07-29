@@ -129,21 +129,21 @@ STATIC_URL = '/static/'
 
 #DEPLOYMENT UPDATE
 
-#By default django-admin will create sqlite database for us and if we want to change from sqlite to any database
+#part 1
 
 import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
 
-#For static files
+#part 2
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 # Extra places for collectstatic to find static files.
 STATICFILES_DIRS = (
-    os.path.join(PROJECT_ROOT, 'Forums_Application/static'),
+    os.path.join(BASE_DIR, 'Forums_Application/static'),
 )
 
 
