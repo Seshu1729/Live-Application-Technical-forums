@@ -135,7 +135,6 @@ import dj_database_url
 db_from_env = dj_database_url.config()
 DATABASES['default'].update(db_from_env)
 
-
 #part 2
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -146,5 +145,13 @@ STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'Forums_Application/static'),
 )
 
-
 STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
+#part 3
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
+}
