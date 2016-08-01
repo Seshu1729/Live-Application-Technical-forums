@@ -117,8 +117,8 @@ def search(request):
 def view_question(request,pk):
     # fetch question details
     question_details = Question.objects.get(id=pk)
+    question_active_time = question_details.active
     question_details = model_to_dict(question_details)
-    question_active_time = question_details["active"]
 
     #fetch comments of question
     comments = Comment.objects.filter(commented_to_question_id=question_details["id"]).values()
