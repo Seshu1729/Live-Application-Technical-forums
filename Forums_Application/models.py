@@ -14,7 +14,7 @@ class Question(models.Model):
 
     def time_difference(self):
         old_time = self.active.replace(tzinfo=None)
-        seconds = (datetime.now()-old_time).total_seconds() - (5*60*60) - (30*60)
+        seconds = (datetime.now()-old_time).total_seconds()
 
         minutes = seconds / 60
         hours = minutes / 60
