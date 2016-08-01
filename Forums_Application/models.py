@@ -4,12 +4,13 @@ from django.contrib.auth.models import User, AbstractUser
 from django.db import models
 from datetime import datetime
 
+
 class Question(models.Model):
     question_title = models.CharField(max_length=256)
     question_description = models.TextField()
     questioned_by = models.ForeignKey(User, on_delete=models.CASCADE)
     answer_count = models.IntegerField(default=0)
-    active = models.DateTimeField(default=datetime.now(), blank=True)
+    active = models.DateTimeField(auto_now=True, blank=True)
 
     def time_difference(self):
         old_time = self.active.replace(tzinfo=None)
@@ -43,15 +44,12 @@ class Answer(models.Model):
     answer_description = models.TextField()
     answered_by = models.ForeignKey(User, on_delete=models.CASCADE)
     answered_to = models.ForeignKey(Question, on_delete=models.CASCADE)
-    accepted_answer = models.BooleanField(default=0)
-    active = models.DateTimeField(default=datetime.now(),blank=True)
 
 class Comment(models.Model):
     comment_description = models.TextField()
     commented_by = models.ForeignKey(User, on_delete=models.CASCADE)
     commented_to_answer = models.ForeignKey(Answer, on_delete=models.CASCADE,blank=True,null=True)
     commented_to_question = models.ForeignKey(Question, on_delete=models.CASCADE,blank=True,null=True)
-    active = models.DateTimeField(default=datetime.now(), blank=True)
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=32)

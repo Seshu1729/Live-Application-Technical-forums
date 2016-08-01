@@ -117,9 +117,7 @@ def search(request):
 def view_question(request,pk):
     # fetch question details
     question_details = Question.objects.get(id=pk)
-    question_active_time = question_details.active
     question_details = model_to_dict(question_details)
-
     #fetch comments of question
     comments = Comment.objects.filter(commented_to_question_id=question_details["id"]).values()
     if len(comments)!=0:
@@ -137,7 +135,7 @@ def view_question(request,pk):
         tag_details += Tag.objects.filter(id=tag["tag_link"])
 
     #fetch answer details
-    answers_list = Answer.objects.filter(answered_to=pk).values().order_by('-active', '-accepted_answer')
+    answers_list = Answer.objects.filter(answered_to=pk).values()
     for answer in answers_list:
         answer.update({"answered_by":User.objects.get(id=answer["answered_by_id"])})
         #fetch comments of answers
@@ -164,7 +162,7 @@ def view_question(request,pk):
     current_user_id = request.user.id
 
     #return responce
-    context_message = {"question_details":question_details,"question_active_time":question_active_time,"answers_list":answers_list,"user_details":user_details,"tag_details":tag_details,"current_user_id":current_user_id}
+    context_message = {"question_details":question_details,"answers_list":answers_list,"user_details":user_details,"tag_details":tag_details,"current_user_id":current_user_id}
     return render(request,template_name="Technical_Forums/view_question.html",context=context_message)
 
 def add_answer(request,pk):
@@ -390,17 +388,3 @@ def sort_by_voice(request):
 
     context_message = {"questions_list": questions_list}
     return render(request,template_name="Technical_Forums/home_page.html",context=context_message)
-
-def accept_answer(request,pk1,pk2):
-    answer_details = Answer.objects.get(id=pk2)
-    answer_details.accepted_answer = 1
-    answer_details.save()
-
-    return HttpResponseRedirect('/home_page/view_question/' + pk1)
-
-def undo_accept_answer(request,pk1,pk2):
-    answer_details = Answer.objects.get(id=pk2)
-    answer_details.accepted_answer = 0
-    answer_details.save()
-
-    return HttpResponseRedirect('/home_page/view_question/' + pk1)
