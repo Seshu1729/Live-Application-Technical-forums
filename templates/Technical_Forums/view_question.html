@@ -36,12 +36,13 @@
             {% for comment in question_details.comments %}
                 <hr class="dashed_line comment_line">
                 <blockquote>
-                    <div class="col-sm-8">
+                    <div class="col-sm-12">
                         <p>{{ comment.comment_description }}</p>
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-sm-12">
                         <small class="pull-right"><cite>by {{ comment.commented_by }}({{ comment.active }})</cite></small>
                     </div>
+                    <br/>
                 </blockquote>
             {% endfor %}
         {% endif %}
@@ -103,12 +104,13 @@
                     {% for comment in answer.comments %}
                         <hr class="dashed_line comment_line">
                         <blockquote>
-                            <div class="col-sm-8">
+                            <div class="col-sm-12">
                                 <p>{{ comment.comment_description }}</p>
                             </div>
-                            <div class="col-sm-4">
+                            <div class="col-sm-12">
                                 <small class="pull-right"><cite>by {{ comment.commented_by }}({{ comment.active }})</cite></small>
                             </div>
+                            <br/>
                         </blockquote>
                     {% endfor %}
                 {% endif %}
