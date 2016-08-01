@@ -10,11 +10,11 @@ class Question(models.Model):
     question_description = models.TextField()
     questioned_by = models.ForeignKey(User, on_delete=models.CASCADE)
     answer_count = models.IntegerField(default=0)
-    active = models.DateTimeField(auto_now=True, blank=True)
+    active = models.DateTimeField(default=datetime.now())
 
     def time_difference(self):
         old_time = self.active.replace(tzinfo=None)
-        seconds = (datetime.now()-old_time).total_seconds()
+        seconds = (datetime.now()-old_time).total_seconds() - (5*60*60) - (30*60)
 
         minutes = seconds / 60
         hours = minutes / 60
@@ -44,12 +44,15 @@ class Answer(models.Model):
     answer_description = models.TextField()
     answered_by = models.ForeignKey(User, on_delete=models.CASCADE)
     answered_to = models.ForeignKey(Question, on_delete=models.CASCADE)
+    accepted_answer = models.BooleanField(default=0)
+    active = models.DateTimeField(default=datetime.now())
 
 class Comment(models.Model):
     comment_description = models.TextField()
     commented_by = models.ForeignKey(User, on_delete=models.CASCADE)
     commented_to_answer = models.ForeignKey(Answer, on_delete=models.CASCADE,blank=True,null=True)
     commented_to_question = models.ForeignKey(Question, on_delete=models.CASCADE,blank=True,null=True)
+    active = models.DateTimeField(default=datetime.now())
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=32)
