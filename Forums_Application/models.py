@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 
 from django.contrib.auth.models import User, AbstractUser
 from django.db import models
-from datetime import datetime
+from django.utils import timezone
 
 
 class Question(models.Model):
@@ -10,11 +10,11 @@ class Question(models.Model):
     question_description = models.TextField()
     questioned_by = models.ForeignKey(User, on_delete=models.CASCADE)
     answer_count = models.IntegerField(default=0)
-    active = models.DateTimeField(default=datetime.now())
+    active = models.DateTimeField(default=timezone.now())
 
     def time_difference(self):
         old_time = self.active.replace(tzinfo=None)
-        seconds = (datetime.now()-old_time).total_seconds() - (5*60*60) - (30*60)
+        seconds = (timezone.now()-old_time).total_seconds()
 
         minutes = seconds / 60
         hours = minutes / 60
@@ -45,14 +45,14 @@ class Answer(models.Model):
     answered_by = models.ForeignKey(User, on_delete=models.CASCADE)
     answered_to = models.ForeignKey(Question, on_delete=models.CASCADE)
     accepted_answer = models.BooleanField(default=0)
-    active = models.DateTimeField(default=datetime.now())
+    active = models.DateTimeField(default=timezone.now())
 
 class Comment(models.Model):
     comment_description = models.TextField()
     commented_by = models.ForeignKey(User, on_delete=models.CASCADE)
     commented_to_answer = models.ForeignKey(Answer, on_delete=models.CASCADE,blank=True,null=True)
     commented_to_question = models.ForeignKey(Question, on_delete=models.CASCADE,blank=True,null=True)
-    active = models.DateTimeField(default=datetime.now())
+    active = models.DateTimeField(default=timezone.now())
 
 class Tag(models.Model):
     tag_name = models.CharField(max_length=32)
