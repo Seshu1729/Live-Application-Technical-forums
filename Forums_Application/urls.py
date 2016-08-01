@@ -23,5 +23,7 @@ urlpatterns = [
     url(r'^home_page/update_answer/(?P<pk>[0-9]+)/add_answer/$', views.update_answer_in_database),
     url(r'^home_page/sortby/active/$', views.sort_by_active),
     url(r'^home_page/sortby/voice/$', views.sort_by_voice),
+    url(r'^home_page/view_question/(?P<pk1>[0-9]+)/accept_answer/(?P<pk2>[0-9]+)/$', views.accept_answer),
+    url(r'^home_page/view_question/(?P<pk1>[0-9]+)/undo_accept_answer/(?P<pk2>[0-9]+)/$', views.undo_accept_answer),
     url(r'^logout$', views.logout_validation)
 ]
