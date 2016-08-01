@@ -137,7 +137,7 @@ def view_question(request,pk):
         tag_details += Tag.objects.filter(id=tag["tag_link"])
 
     #fetch answer details
-    answers_list = Answer.objects.filter(answered_to=pk).values().order_by('-active', '-accepted_answer')
+    answers_list = Answer.objects.filter(answered_to=pk).values().order_by('-accepted_answer','active')
     for answer in answers_list:
         answer.update({"answered_by":User.objects.get(id=answer["answered_by_id"])})
         #fetch comments of answers
