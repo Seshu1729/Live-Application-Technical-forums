@@ -124,3 +124,8 @@ blockquote
 {
     padding-top:40px;
 }
+
+.accepted
+{
+    background-color: #5cb85c;
+}
